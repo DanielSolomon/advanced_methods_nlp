@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, Counter
 import random
 
 class PCFG(object):
@@ -55,6 +55,7 @@ class PCFG(object):
         if self.is_terminal(symbol): return symbol
         else:
             expansion = self.random_expansion(symbol)
+            #self.counter.update([tuple(expansion)])
             return " ".join(self.gen(s) for s in expansion)
 
     def gentree(self, symbol):
@@ -62,13 +63,21 @@ class PCFG(object):
             Generates a derivation tree from a given symbol
         """
         ### YOUR CODE HERE
-        raise NotImplementedError
+        
+        if self.is_terminal(symbol):
+            return symbol
+        expansion = self.random_expansion(symbol)
+        return '({} {})'.format(symbol, ' '.join(self.gentree(r) for r in expansion))
+            
+        
         ### END YOUR CODE
         return ""
 
     def random_sent(self):
-        return self.gen("ROOT")
-
+        #self.counter = Counter()
+        s = self.gen("ROOT")
+        #print self.counter.most_common()
+        return s
     def random_tree(self):
         return self.gentree("ROOT")
 
