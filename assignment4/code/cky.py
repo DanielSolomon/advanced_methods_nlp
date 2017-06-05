@@ -28,11 +28,10 @@ def gentree_by_bp(sent, bp, i, j, r):
     right       = rule[1][1]
     left_tree   = gentree_by_bp(sent, bp, i, s, left)
     right_tree  = gentree_by_bp(sent, bp, s + 1, j, right)
-    return '({} ({} {}))'.format(rule[0], left_tree, right_tree)
+    return '({} {} {})'.format(rule[0], left_tree, right_tree)
     
 def cky(pcfg, sent):
     sent = sent.split()
-    
     pi          = collections.defaultdict(float)
     rule_probs  = calculate_pcfg_rule_probs(pcfg)
     bp          = {}
@@ -45,7 +44,7 @@ def cky(pcfg, sent):
             
     # recursion
     for l in range(1, len(sent)):
-        for i in range(len(sent) - 1):
+        for i in range(len(sent) - l):
             j = i + l
             for r in pcfg._rules.keys():
                 max_prob  = 0.0
@@ -67,7 +66,7 @@ def cky(pcfg, sent):
                             best_s    = s
                 pi[(i, j, r)] = max_prob
                 bp[(i, j, r)] = best_rule, best_s
-    
+
     if pi[(0, len(sent) - 1, 'S')] > 0:
         return gentree_by_bp(sent, bp, 0, len(sent) - 1, 'S')
     else:
