@@ -67,8 +67,8 @@ def cky(pcfg, sent):
                 pi[(i, j, r)] = max_prob
                 bp[(i, j, r)] = best_rule, best_s
 
-    if pi[(0, len(sent) - 1, 'S')] > 0:
-        return gentree_by_bp(sent, bp, 0, len(sent) - 1, 'S')
+    if pi[(0, len(sent) - 1, 'ROOT')] > 0:
+        return gentree_by_bp(sent, bp, 0, len(sent) - 1, 'ROOT')
     else:
         return "FAILED TO PARSE!"
 

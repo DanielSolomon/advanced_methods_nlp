@@ -19,8 +19,8 @@
 
 # Rules for creating full sentences.
 
-1	ROOT	S .
-1	ROOT	S !
+1	ROOT	S Dot
+1	ROOT	S Exc
 
 # The basic grammar rules.  Here's what the abbreviations stand for:
 #    S  = sentence
@@ -68,3 +68,6 @@
 1	Prep	on
 1	Prep	under
 1	Prep	in
+
+1   Dot     .
+1   Exc     !
